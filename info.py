@@ -36,10 +36,17 @@ NSF_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 #ARPA Parameters
 ARPA_NUM_NODES    = 20
 ARPA_NUM_CHANNELS = 12
+ARPA_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
 #ITALIAN Parameters
 ITA_NUM_NODES     = 21
 ITA_NUM_CHANNELS  = 12
+ITA_CHANNEL_FREE  = False  # init all link wavelengths available at once?
+
+#RNP Parameters
+RNP_NUM_NODES     = 28
+RNP_NUM_CHANNELS  = 4
+RNP_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
 # Genetic Algorithm Parameters
 GA_SIZE_POP       = 30    # size of the population of each species
