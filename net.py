@@ -136,18 +136,23 @@ def generate(top):
 		]
 		return ita_links, num_nodes, num_channels
 		
-	#def CLARA():
-		#print 'Chosen topology: CLARA'
-		#num_channels = info.CLARA_NUM_CHANNELS
-		#num_nodes = info.CLARA_NUM_NODES
-		#CLARA topology 2004
-		#clara_links = [\
-		#	(0,1), (0,13),										#0
-		#	(1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8),	#1
-		#	(8,9), (8,10), (8,11),								#8
-		#	(11,12), (11,13),									#11
-		#	(13,14),(13,15),(13,16),(13,17)						#13
-		#]
+	def CLARA():
+		print 'Chosen topology: CLARA'
+		num_channels = info.CLARA_NUM_CHANNELS
+		num_nodes = info.CLARA_NUM_NODES
+		#CLARA topology 2017
+		clara_links = [\
+			(0,1), (0,5), (0,8), (0,11),						#0
+			(1,2),												#1
+			(2,3),												#2
+			(3,4),												#3
+			(4,5),												#4
+			(5,6), (5,7), (5,11),								#5
+			(7,8),												#7
+			(8,9), (8,11),										#8
+			(9,10), (9,11),										#9
+			(11,12)												#11
+		]
 		return clara_links, num_nodes, num_channel
 
 	def set_wave_availability(nc):
