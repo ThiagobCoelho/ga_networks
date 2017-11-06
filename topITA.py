@@ -13,7 +13,7 @@ def plot_graph():
 	ax = fig.add_subplot(111)
 
 	# define vertices or nodes as points in 2D cartesian plan
-	nsfnodes = [\
+	itanodes = [\
 		(0.70, 6.50),	#0 
 		(1.80, 7.00),	#1
 		(1.80, 6.00),	#2
@@ -38,7 +38,7 @@ def plot_graph():
 	]
 
 	# define links or edges as node index ordered pairs in cartesian plan
-	nsflinks = [\
+	italinks = [\
 		(0,1), (0,2),							# 0
 		(1,2), (1,3), (1,4),					# 1
 		(2,7), (2,8), (2,9),					# 2
@@ -62,14 +62,14 @@ def plot_graph():
 		#(20,12)								# 20
 	]
 	# draw edges before vertices
-	for link in nsflinks:
-		x = [ nsfnodes[link[0]][0], nsfnodes[link[1]][0] ]
-		y = [ nsfnodes[link[0]][1], nsfnodes[link[1]][1] ]
+	for link in italinks:
+		x = [ itanodes[link[0]][0], itanodes[link[1]][0] ]
+		y = [ itanodes[link[0]][1], itanodes[link[1]][1] ]
 		plt.plot(x, y, 'k--', linewidth=2)
 
 	# draw vertices
 	i = 0
-	for node in nsfnodes:
+	for node in itanodes:
 		# parameter to adjust text on the center of the vertice
 		if i < 10:
 			corr = 0.060
@@ -86,19 +86,19 @@ def plot_graph():
 
 
 #	# highlight source node
-#	plt.plot(nsfnodes[0][0], nsfnodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
-#	ax.annotate("0", xy=(nsfnodes[0][0]-corr+0.01, nsfnodes[0][1]-corr), color='white')
+#	plt.plot(itanodes[0][0], itanodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("0", xy=(itanodes[0][0]-corr+0.01, itanodes[0][1]-corr), color='white')
 #
 #	# highlight destination node
-#	plt.plot(nsfnodes[13][0], nsfnodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
-#	ax.annotate("13", xy=(nsfnodes[13][0]-corr, nsfnodes[13][1]-corr), color='white')
+#	plt.plot(itanodes[13][0], itanodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("13", xy=(itanodes[13][0]-corr, itanodes[13][1]-corr), color='white')
 
 #	# highlight 
 #	idx = 0;
 #	for bestroute in routes:
 #		for i in xrange(len(bestroute)-1):
-#			x = [ nsfnodes[bestroute[i]][0], nsfnodes[bestroute[i+1]][0] ]
-#			y = [ nsfnodes[bestroute[i]][1], nsfnodes[bestroute[i+1]][1] ]
+#			x = [ itanodes[bestroute[i]][0], itanodes[bestroute[i+1]][0] ]
+#			y = [ itanodes[bestroute[i]][1], itanodes[bestroute[i+1]][1] ]
 #			if i == len(bestroute)-2:
 #				include_head = True
 #				head_length = 0.3

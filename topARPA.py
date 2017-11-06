@@ -13,7 +13,7 @@ def plot_graph():
 	ax = fig.add_subplot(111)
 
 	# define vertices or nodes as points in 2D cartesian plan
-	nsfnodes = [\
+	arpanodes = [\
 		(1.80, 5.70),
 		(2.80, 5.00),
 		(3.40, 6.30),
@@ -37,7 +37,7 @@ def plot_graph():
 	]
 
 	# define links or edges as node index ordered pairs in cartesian plan
-	nsflinks = [\
+	arpalinks = [\
 		(0,1), (0,2), (0,19),		# 0
 		(1,2), (1,3),				# 1
 		(2,4),						# 2
@@ -60,14 +60,14 @@ def plot_graph():
 		# (19,16), (19,0)			# 19
 	]
 	# draw edges before vertices
-	for link in nsflinks:
-		x = [ nsfnodes[link[0]][0], nsfnodes[link[1]][0] ]
-		y = [ nsfnodes[link[0]][1], nsfnodes[link[1]][1] ]
+	for link in arpalinks:
+		x = [ arpanodes[link[0]][0], arpanodes[link[1]][0] ]
+		y = [ arpanodes[link[0]][1], arpanodes[link[1]][1] ]
 		plt.plot(x, y, 'k--', linewidth=2)
 
 	# draw vertices
 	i = 0
-	for node in nsfnodes:
+	for node in arpanodes:
 		# parameter to adjust text on the center of the vertice
 		if i < 10:
 			corr = 0.060
@@ -83,20 +83,20 @@ def plot_graph():
 	colors = ['red', 'green', 'blue']
 
 
-	# highlight source node
-	plt.plot(nsfnodes[0][0], nsfnodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
-	ax.annotate("0", xy=(nsfnodes[0][0]-corr+0.01, nsfnodes[0][1]-corr), color='white')
+#	# highlight source node
+#	plt.plot(arpanodes[0][0], arpanodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("0", xy=(arpanodes[0][0]-corr+0.01, arpanodes[0][1]-corr), color='white')
 
-	# highlight destination node
-	plt.plot(nsfnodes[13][0], nsfnodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
-	ax.annotate("13", xy=(nsfnodes[13][0]-corr, nsfnodes[13][1]-corr), color='white')
+#	# highlight destination node
+#	plt.plot(arpanodes[13][0], arpanodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("13", xy=(arpanodes[13][0]-corr, arpanodes[13][1]-corr), color='white')
 
 #	# highlight 
 #	idx = 0;
 #	for bestroute in routes:
 #		for i in xrange(len(bestroute)-1):
-#			x = [ nsfnodes[bestroute[i]][0], nsfnodes[bestroute[i+1]][0] ]
-#			y = [ nsfnodes[bestroute[i]][1], nsfnodes[bestroute[i+1]][1] ]
+#			x = [ arpanodes[bestroute[i]][0], arpanodes[bestroute[i+1]][0] ]
+#			y = [ arpanodes[bestroute[i]][1], arpanodes[bestroute[i+1]][1] ]
 #			if i == len(bestroute)-2:
 #				include_head = True
 #				head_length = 0.3

@@ -13,39 +13,39 @@ def plot_graph():
 	ax = fig.add_subplot(111)
 
 	# define vertices or nodes as points in 2D cartesian plan
-	nsfnodes = [\
-		(1.10, 8.00),	#0 
-		(2.00, 7.00),	#1
-		(2.90, 7.50),	#2
-		(3.50, 4.50),	#3
-		(3.60, 7.20),	#4
-		(2.80, 5.00),	#5
-		(4.70, 7.00),	#6
-		(5.70, 6.60),	#7
-		(6.20, 6.10),	#8
-		(6.30, 5.70),	#9
-		(5.30, 5.70),	#10
-		(6.10, 5.20),	#11
-		(3.90, 6.30),	#12
-		(5.80, 4.50),	#13
-		(5.30, 4.00),	#14
-		(4.80, 3.50),	#15
-		(4.20, 2.70),	#16
-		(4.00, 2.10),	#17
-		(3.20, 2.10),	#18
-		(3.80, 3.20),	#19
-		(2.90, 1.20),	#20
-		(1.70, 0.60),	#21
-		(2.10, 1.90),	#22
-		(1.30, 3.00),	#23
-		(1.80, 4.30),	#24
-		(2.60, 3.50),	#25
-		(1.10, 5.00),	#26
-		(0.50, 5.00)	#27
+	rnpnodes = [\
+		(5.00, 3.25),	#0 
+		(5.50, 3.75),	#1
+		(8.25, 3.75),	#2
+		(4.00, 5.00),	#3
+		(9.00, 3.00),	#4
+		(3.00, 3.00),	#5
+		(9.00, 4.00),	#6
+		(9.50, 5.00),	#7
+		(10.50, 5.00),	#8
+		(10.50, 3.00),	#9
+		(10.50, 1.00),	#10
+		(9.50, 1.00),	#11
+		(9.00, 2.00),	#12
+		(8.00, 2.00),	#13
+		(7.00, 2.00),	#14
+		(6.00, 2.00),	#15
+		(6.00, 1.00),	#16
+		(4.00, 1.00),	#17
+		(2.00, 1.00),	#18
+		(6.00, 5.50),	#19
+		(1.00, 1.00),	#20
+		(1.00, 2.00),	#21
+		(2.00, 2.00),	#22
+		(2.00, 4.00),	#23
+		(2.00, 5.00),	#24
+		(3.00, 5.00),	#25
+		(1.00, 5.00),	#26
+		(1.00, 4.00)	#27
 	]
 
 	# define links or edges as node index ordered pairs in cartesian plan
-	nsflinks = [\
+	rnplinks = [\
 		(0,1),									# 0
 		(1,3), (1,4),							# 1
 		(2,4),									# 2
@@ -72,22 +72,20 @@ def plot_graph():
 		(26,27)									# 26
 	]
 	# draw edges before vertices
-	for link in nsflinks:
-		x = [ nsfnodes[link[0]][0], nsfnodes[link[1]][0] ]
-		y = [ nsfnodes[link[0]][1], nsfnodes[link[1]][1] ]
-		plt.plot(x, y, 'k-', linewidth=2)
+	for link in rnplinks:
+		x = [ rnpnodes[link[0]][0], rnpnodes[link[1]][0] ]
+		y = [ rnpnodes[link[0]][1], rnpnodes[link[1]][1] ]
+		plt.plot(x, y, 'k--', linewidth=2)
 
+	states = ['RR','AM','AP','DF','PA','TO','MA','CE','RN','PB',
+				'PB','PE','PI','AL','SE','BA','ES','RJ','SP','MG',
+					'SC','RS','PR','MS','MT','GO','RO','AC']
 	# draw vertices
 	i = 0
-	for node in nsfnodes:
-		# parameter to adjust text on the center of the vertice
-		if i < 10:
-			corr = 0.060
-		else:
-			corr = 0.085
+	for node in rnpnodes:
 
 		plt.plot(node[0], node[1], 'wo', markersize=25)
-		ax.annotate(str(i), xy=(node[0]-corr, node[1]-corr))
+		ax.annotate(states[i], xy=(node[0]-0.19, node[1]-0.09))
 
 		i += 1
 
@@ -96,19 +94,19 @@ def plot_graph():
 
 
 #	# highlight source node
-#	plt.plot(nsfnodes[0][0], nsfnodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
-#	ax.annotate("0", xy=(nsfnodes[0][0]-corr+0.01, nsfnodes[0][1]-corr), color='white')
+#	plt.plot(rnpnodes[0][0], rnpnodes[0][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("0", xy=(rnpnodes[0][0]-corr+0.01, rnpnodes[0][1]-corr), color='white')
 #
 #	# highlight destination node
-#	plt.plot(nsfnodes[13][0], nsfnodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
-#	ax.annotate("13", xy=(nsfnodes[13][0]-corr, nsfnodes[13][1]-corr), color='white')
+#	plt.plot(rnpnodes[13][0], rnpnodes[13][1], 'ko', markersize=25, markeredgewidth=3.0)
+#	ax.annotate("13", xy=(rnpnodes[13][0]-corr, rnpnodes[13][1]-corr), color='white')
 
 #	# highlight 
 #	idx = 0;
 #	for bestroute in routes:
 #		for i in xrange(len(bestroute)-1):
-#			x = [ nsfnodes[bestroute[i]][0], nsfnodes[bestroute[i+1]][0] ]
-#			y = [ nsfnodes[bestroute[i]][1], nsfnodes[bestroute[i+1]][1] ]
+#			x = [ rnpnodes[bestroute[i]][0], rnpnodes[bestroute[i+1]][0] ]
+#			y = [ rnpnodes[bestroute[i]][1], rnpnodes[bestroute[i+1]][1] ]
 #			if i == len(bestroute)-2:
 #				include_head = True
 #				head_length = 0.3
@@ -137,8 +135,8 @@ def plot_graph():
 #						fc=colors[idx], ec=colors[idx])
 #		idx += 1
 
-	plt.xticks(np.arange(0, 7, 1))
-	plt.yticks(np.arange(0, 8, 1))
+	plt.xticks(np.arange(0, 12, 1))
+	plt.yticks(np.arange(0, 7, 1))
 	plt.show(block=False)
 
 if __name__=='__main__':
