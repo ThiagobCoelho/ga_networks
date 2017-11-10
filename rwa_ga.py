@@ -29,7 +29,7 @@ import math
 import random
 
 # TODO: Create Population
-def make_chromosome(nsfnet, start_router, end_router, allels):
+def make_chromosome(net, start_router, end_router, allels, num_nodes):
 	count = 0
 	# 1. start from source node
 	current_router = start_router
@@ -40,7 +40,7 @@ def make_chromosome(nsfnet, start_router, end_router, allels):
 		next_router = random.choice(allels)
 
 		# SURELY: check whether there is an edge/link/connection or not
-		if nsfnet[current_router][next_router] > 0.0: 
+		if net[current_router][next_router] > 0.0: 
 			# 3. if the chosen node hasn't been visited before, mark it as the
 			# next in the path (gene). Otherwise find another node
 			current_router = next_router
@@ -58,18 +58,18 @@ def make_chromosome(nsfnet, start_router, end_router, allels):
 				chromosome = False
 				break
 
-	if chromosome and len(chromosome) > info.NSF_NUM_NODES:
+	if chromosome and len(chromosome) > num_nodes:
 		chromosome = False
 
 	return chromosome
 
-def evaluate(R, N):
+def evaluate(R, N, num_channels):
 	def get_wave_availability(k, n):
 		return (int(n) & ( 1 << k )) >> k
 
 	l = len(R)-1
 	L = []
-	for w in xrange(1, info.NSF_NUM_CHANNELS+1):
+	for w in xrange(1, num_channels+1):
 		num = 0
 		for i in xrange(l):
 			rcurr = R[i]
@@ -144,7 +144,7 @@ def cross(parents):
 		return children
 
 # TODO: Mutation Function
-def mutate(nsfnet, normal_chrom):
+def mutate(net, normal_chrom, num_nodes):
 	# DO NOT perform mutation if:
 	# route has only one link which directly connects source to target
 	if len(normal_chrom) == 2:
@@ -165,10 +165,10 @@ def mutate(nsfnet, normal_chrom):
 
 	# alphabet: graph vertices that are not in genes before mutation point
 	allels = [start_router, end_router]
-	allels += [a for a in range(info.NSF_NUM_NODES) if a not in trans_chrom]
+	allels += [a for a in range(num_nodes) if a not in trans_chrom]
 
 	# create a new route R from mutation point to target node
-	R = make_chromosome(nsfnet, start_router, end_router, allels)
+	R = make_chromosome(net, start_router, end_router, allels, num_nodes)
 
 	# check if new route/path is valid
 	if R:
@@ -193,13 +193,14 @@ def insertion_sort(A):
 	return A
 
 # TODO: Main Genetic Algorithm Function
-def rwa_ga(N, A, T, holding_time):
+def rwa_ga(N, A, T, holding_time, num_nodes, num_channels):
 	# generates initial population with random but valid chromosomes
 	population = [] # [ [[chrom], [L], wl_avail, r_len], [[chrom], [L], wl_avail, r_len], ..., ]
 	trials = 0
 	while len(population) < info.GA_SIZE_POP and trials < 300:
-		allels = range(info.NSF_NUM_NODES) # router indexes
-		chromosome = make_chromosome(A, info.NSF_SOURCE_NODE, info.NSF_DEST_NODE, allels)
+		allels = range(num_nodes) # router indexes
+		chromosome = make_chromosome(A, info.NSF_SOURCE_NODE,
+info.NSF_DEST_NODE, allels, num_nodes)
 		individual = [chromosome, [], 0, 0]
 		if chromosome and individual not in population:
 			population.append(individual)
@@ -212,7 +213,7 @@ def rwa_ga(N, A, T, holding_time):
 	for generation in range(info.GA_MIN_GEN):
 		# perform evaluation (fitness calculation)
 		for ind in xrange(len(population)):
-			L, wl_avail, r_len = evaluate(population[ind][0], N)
+			L, wl_avail, r_len = evaluate(population[ind][0], N, num_channels)
 			population[ind][1] = L
 			population[ind][2] = wl_avail
 			population[ind][3] = r_len
@@ -230,7 +231,7 @@ def rwa_ga(N, A, T, holding_time):
 		# perform mutation
 		for i in xrange(int(math.ceil(info.GA_MIN_MUT_RATE*len(population)))):
 			normal_ind = random.choice(population)
-			trans_ind = mutate(N, normal_ind[0]) # X MEN
+			trans_ind = mutate(N, normal_ind[0], num_nodes) # X MEN
 			if trans_ind != normal_ind:
 				population.remove(normal_ind)
 				population.insert(0, [trans_ind, [], 0, 0])
@@ -252,7 +253,7 @@ def rwa_ga(N, A, T, holding_time):
 
 	# perform evaluation (fitness calculation)
 	for ind in xrange(len(population)):
-		L, wl_avail, r_len = evaluate(population[ind][0], N)
+		L, wl_avail, r_len = evaluate(population[ind][0], N, num_channels)
 		population[ind][1]  = L
 		population[ind][2]  = wl_avail
 		population[ind][3]  = r_len

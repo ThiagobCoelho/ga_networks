@@ -25,28 +25,33 @@ SIM_NUM_GEN = 150
 SIM_MIN_LOAD = 1
 SIM_MAX_LOAD = 31
 
+NET_CHANNEL_FREE  = False  # init all link wavelengths available at once?
+
 # NSF Parameters
 NSF_SOURCE_NODE   = 0  # source
-NSF_DEST_NODE     = 12 # destination node
+NSF_DEST_NODE     = 5 # destination node
 NSF_NUM_NODES     = 14 # number of nodes on NSF network
-
 NSF_NUM_CHANNELS  = 16     # total number of wavelengths available
-NSF_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
-#ARPA Parameters
+# ARPA Parameters
 ARPA_NUM_NODES    = 20
 ARPA_NUM_CHANNELS = 12
-ARPA_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
-#ITALIAN Parameters
+# ITALIAN Parameters
 ITA_NUM_NODES     = 21
 ITA_NUM_CHANNELS  = 12
-ITA_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
-#RNP Parameters
+# RNP Parameters
 RNP_NUM_NODES     = 28
 RNP_NUM_CHANNELS  = 4
-RNP_CHANNEL_FREE  = False  # init all link wavelengths available at once?
+
+# CLARA Parameters
+CLARA_NUM_NODES   = 13
+CLARA_NUM_CHANNELS= 4
+
+# JANET Parameters
+JANET_NUM_NODES   = 7
+JANET_NUM_CHANNELS= 4
 
 # Genetic Algorithm Parameters
 GA_SIZE_POP       = 30    # size of the population of each species
