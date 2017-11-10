@@ -20,7 +20,7 @@ def plot_graph():
 		(1.00, 2.00),#3
 		(2.00, 2.00),#4
 		(1.00, 1.00),#5
-		(2.00, 1.00),#6
+		(2.00, 1.00) #6
 	]
 
 	# define links or edges as node index ordered pairs in cartesian plan
