@@ -35,7 +35,7 @@ def yen(mat, (s,d), k):
 def get_wave_availability(k, n):
 	return (int(n) & ( 1 << k )) >> k
 
-def rwa_alt(N, A, T, holding_time):
+def rwa_alt(N, A, T, holding_time, num_channels):
 	SD = (info.NSF_SOURCE_NODE, info.NSF_DEST_NODE)
 
 	# alternate k shortest paths
@@ -64,7 +64,7 @@ def rwa_alt(N, A, T, holding_time):
 		color = None
 		rcurr, rnext = R[0], R[1] # get the first two nodes from route R
 		# Check whether each wavelength ...
-		for w in xrange(info.NSF_NUM_CHANNELS):
+		for w in xrange(num_channels):
 			# ... is available on the first link of route R
 			if get_wave_availability(w, N[rcurr][rnext]):
 				color = w

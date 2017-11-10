@@ -153,15 +153,29 @@ def generate(top):
 			(9,10), (9,11),										#9
 			(11,12)												#11
 		]
-		return clara_links, num_nodes, num_channel
+		return clara_links, num_nodes, num_channels
+
+	def JANET():
+		print 'Chosen topology: JANET'
+		num_channels = info.JANET_NUM_CHANNELS
+		num_nodes = info.JANET_NUM_NODES
+		janet_links = [\
+			(0,1), (0,2),				#0
+			(1,2), (1,3),				#1
+			(2,4), 						#2
+			(3,4), (3,5), #(3,6),		#3
+			(4,6),						#4
+			(5,6)						#5
+		]
+		return janet_links, num_nodes, num_channels
 
 	def set_wave_availability(nc):
 		nwaves = 2**nc
-		if info.NSF_CHANNEL_FREE:
+		if info.NET_CHANNEL_FREE:
 			return np.uint8(nwaves-1)
 		return np.uint8(random.randrange(1, nwaves))
 
-	topology = { '1': NSF, '2': ARPA, '3': ITA, '4': RNP }
+	topology = {'1':NSF, '2':ARPA, '3':ITA, '4':RNP, '5':CLARA, '6':JANET}
 	net_links, num_nodes, num_channels = topology[top]()
 	
 	net_wave = np.zeros((num_nodes, num_nodes), dtype=np.uint8)
@@ -181,5 +195,5 @@ def generate(top):
 			net_time[link[0]][link[1]][w] = int(availability[w]) * np.random.rand()
 			net_time[link[1]][link[0]][w] = net_time[link[0]][link[1]][w]
 
-	return net_wave, net_adj, net_time, net_links, num_channels 
+	return net_wave, net_adj, net_time, net_links, num_channels, num_nodes 
 

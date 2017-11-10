@@ -34,7 +34,7 @@ def dijkstra(mat, (s,d)):
 def get_wave_availability(k, n):
 	return (int(n) & ( 1 << k )) >> k
 
-def rwa_fix(N, A, T, holding_time):
+def rwa_fix(N, A, T, holding_time, num_channels):
 	SD = (info.NSF_SOURCE_NODE, info.NSF_DEST_NODE)
 	R = dijkstra(A, SD)
 
@@ -58,7 +58,7 @@ def rwa_fix(N, A, T, holding_time):
 	color = None
 	rcurr, rnext = R[0], R[1]
 	# Check whether each wavelength ...
-	for w in xrange(info.NSF_NUM_CHANNELS):
+	for w in xrange(num_channels):
 		# ... is available on the first link of route R
 		if get_wave_availability(w, N[rcurr][rnext]):
 			color = w
