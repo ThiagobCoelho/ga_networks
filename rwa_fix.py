@@ -34,8 +34,8 @@ def dijkstra(mat, (s,d)):
 def get_wave_availability(k, n):
 	return (int(n) & ( 1 << k )) >> k
 
-def rwa_fix(N, A, T, holding_time, num_channels):
-	SD = (info.NSF_SOURCE_NODE, info.NSF_DEST_NODE)
+def rwa_fix(N, A, T, holding_time, num_channels, source_node, dest_node):
+	SD = (source_node, dest_node)
 	R = dijkstra(A, SD)
 
 	## GLOBAL KNOWLEDGE first fit wavelength assignment

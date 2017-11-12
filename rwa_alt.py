@@ -35,8 +35,8 @@ def yen(mat, (s,d), k):
 def get_wave_availability(k, n):
 	return (int(n) & ( 1 << k )) >> k
 
-def rwa_alt(N, A, T, holding_time, num_channels):
-	SD = (info.NSF_SOURCE_NODE, info.NSF_DEST_NODE)
+def rwa_alt(N, A, T, holding_time, num_channels, source_node, dest_node):
+	SD = (source_node, dest_node)
 
 	# alternate k shortest paths
 	routes = yen(A, SD, info.K)

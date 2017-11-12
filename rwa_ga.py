@@ -193,14 +193,13 @@ def insertion_sort(A):
 	return A
 
 # TODO: Main Genetic Algorithm Function
-def rwa_ga(N, A, T, holding_time, num_nodes, num_channels):
+def rwa_ga(N, A, T, holding_time, num_nodes, num_channels, source_node, dest_node):
 	# generates initial population with random but valid chromosomes
 	population = [] # [ [[chrom], [L], wl_avail, r_len], [[chrom], [L], wl_avail, r_len], ..., ]
 	trials = 0
 	while len(population) < info.GA_SIZE_POP and trials < 300:
 		allels = range(num_nodes) # router indexes
-		chromosome = make_chromosome(A, info.NSF_SOURCE_NODE,
-info.NSF_DEST_NODE, allels, num_nodes)
+		chromosome = make_chromosome(A, source_node, dest_node, allels, num_nodes)
 		individual = [chromosome, [], 0, 0]
 		if chromosome and individual not in population:
 			population.append(individual)
