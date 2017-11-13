@@ -17,7 +17,7 @@
 # Last edited on March, 2017
 
 # Debug Parameters
-DEBUG = False
+DEBUG = True
 
 # Simulation Parameters
 SIM_NUM_GEN = 150
@@ -28,18 +28,18 @@ SIM_MAX_LOAD = 31
 NET_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
 # NSF Parameters
-NSF_SOURCE_NODE   = 0  # source
-NSF_DEST_NODE     = 5 # destination node
-NSF_NUM_NODES     = 14 # number of nodes on NSF network
-NSF_NUM_CHANNELS  = 16     # total number of wavelengths available
+NSF_SOURCE_NODE   = 0   # source
+NSF_DEST_NODE     = 5   # destination node
+NSF_NUM_NODES     = 14  # number of nodes on NSF network
+NSF_NUM_CHANNELS  = 8   # total number of wavelengths available
 
 # ARPA Parameters
 ARPA_NUM_NODES    = 20
-ARPA_NUM_CHANNELS = 12
+ARPA_NUM_CHANNELS = 8
 
 # ITALIAN Parameters
 ITA_NUM_NODES     = 21
-ITA_NUM_CHANNELS  = 12
+ITA_NUM_CHANNELS  = 8
 
 # RNP Parameters
 RNP_NUM_NODES     = 28
