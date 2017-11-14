@@ -20,6 +20,7 @@
 DEBUG = True
 
 # Simulation Parameters
+NUM_SIM = 10
 SIM_NUM_GEN = 150
 
 SIM_MIN_LOAD = 1
