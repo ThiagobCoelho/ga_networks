@@ -62,6 +62,8 @@ if __name__ == "__main__":
 	if info.DEBUG:
 		print net_wave
 
+	# Matrix with nodes X loads for each simulation (info.NUM_SIM) containing
+	# the blocking probilities
 	blocking_p_ga = np.ones((info.NUM_SIM, num_nodes*info.SIM_MAX_LOAD))
 	blocking_p_alt = np.ones((info.NUM_SIM, num_nodes*info.SIM_MAX_LOAD))
 	blocking_p_fix = np.ones((info.NUM_SIM, num_nodes*info.SIM_MAX_LOAD))
@@ -73,6 +75,8 @@ if __name__ == "__main__":
 		blocked_alt = []
 		blocked_fix = []
 
+		# Table with blocked calls, arrived calls and blocking probability
+		# for each node with each load
 		block_table_ga  = np.zeros((info.SIM_MAX_LOAD, num_nodes, 3))
 		block_table_alt = np.zeros((info.SIM_MAX_LOAD, num_nodes, 3))
 		block_table_fix = np.zeros((info.SIM_MAX_LOAD, num_nodes, 3))
@@ -277,32 +281,22 @@ if __name__ == "__main__":
 		#	text = str(block_table_ga[:].reshape(info.SIM_MAX_LOAD,num_nodes,3))
 		#	f.write('%s; ...\n' % text)
 		#
-		#with open('block_GA_{}.m'.format(top), 'a') as f:
-		#	text = str(blocked_ga).replace('[','').replace(']','')
-		#	f.write('%s; ...\n' % text)
-
-		#with open('block_ALT_{}_{}.m'.format(top,str(node)), 'a') as f:
-		#	text = str(blocked_alt).replace('[','').replace(']','')
-		#	f.write('%s; ...\n' % text)
-		#
-		#with open('block_FIX_{}_{}.m'.format(top,str(node)), 'a') as f:
-		#	text = str(blocked_fix).replace('[','').replace(']','')
-		#	f.write('%s; ...\n' % text)
-
-		#with open('block_STF_%d.m' % num_channels, 'a') as f:
-		#	text = str(blocked_std_fix).replace('[','').replace(']','')
-		#	f.write('%s; ...\n' % text)
-		#
-		#
-		#with open('block_STA_%d.m' % num_channels, 'a') as f:
-		#	text = str(blocked_std_alt).replace('[','').replace(']','')
-		#	f.write('%s; ...\n' % text)
 
 	# Final probability gets the mean for each load in each node for N simulations
 	# and reshapes into matrix for better understanding
 	final_p_ga = blocking_p_ga.mean(axis=0).reshape(info.SIM_MAX_LOAD,num_nodes)*100
-	with open('blocks_per_nodes_top_{}.m'.format(top), 'a') as f:
+	with open('blocks_ga_top_{}.m'.format(top), 'a') as f:
 		text = str(np.around(final_p_ga,4))
+		f.write('%s; ...\n' % text)
+
+	final_p_alt = blocking_p_alt.mean(axis=0).reshape(info.SIM_MAX_LOAD,num_nodes)*100
+	with open('blocks_alt_top_{}.m'.format(top), 'a') as f:
+		text = str(np.around(final_p_alt,4))
+		f.write('%s; ...\n' % text)
+
+	final_p_fix = blocking_p_fix.mean(axis=0).reshape(info.SIM_MAX_LOAD,num_nodes)*100
+	with open('blocks_fix_top_{}.m'.format(top), 'a') as f:
+		text = str(np.around(final_p_fix,4))
 		f.write('%s; ...\n' % text)
 
 ### EOF ###
