@@ -29,8 +29,6 @@ SIM_MAX_LOAD = 31
 NET_CHANNEL_FREE  = False  # init all link wavelengths available at once?
 
 # NSF Parameters
-NSF_SOURCE_NODE   = 0   # source
-NSF_DEST_NODE     = 5   # destination node
 NSF_NUM_NODES     = 14  # number of nodes on NSF network
 NSF_NUM_CHANNELS  = 8   # total number of wavelengths available
 

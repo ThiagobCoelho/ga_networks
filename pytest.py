@@ -106,31 +106,27 @@ if __name__ == "__main__":
 			for gen in xrange(info.SIM_NUM_GEN):
 				S, D = random.sample(range(0,num_nodes),2)
 
+				# increase arrived calls counter for the given source node S
 				block_table_ga[load][S][1]  += 1
 				block_table_alt[load][S][1] += 1
 				block_table_fix[load][S][1] += 1
 
+				# exponential distribution (poisson arrival)
 				until_next   = -np.log(1-np.random.rand())/load
 				holding_time = -np.log(1-np.random.rand())
 		
-				flag_ga = rwa_ga(N_ga,  net_adj, T_ga,  holding_time, num_nodes, num_channels, S, D)
-				if flag_ga == 1:
-					count_block_ga += 1
+				# genetic algorithm
+				if rwa_ga(N_ga,  net_adj, T_ga,  holding_time, num_nodes, num_channels, S, D):
 					block_table_ga[load][S][0] += 1
 
-				flag_alt = rwa_alt(N_alt, net_adj, T_alt, holding_time, num_channels, S, D)
-				if flag_alt == 1:
-					count_block_alt += 1
+				# yen + first-fit
+				if rwa_alt(N_alt, net_adj, T_alt, holding_time, num_channels, S, D):
 					block_table_alt[load][S][0] += 1
 
-				flag_fix = rwa_fix(N_fix, net_adj, T_fix, holding_time, num_nodes, S, D)
-				if flag_fix == 1:
-					count_block_fix += 1
+				# dijkstra + first-fit
+				if rwa_fix(N_fix, net_adj, T_fix, holding_time, num_nodes, S, D):
 					block_table_fix[load][S][0] += 1
 
-#				a = block_table_ga[load].sum(0)
-#				b = block_table_alt[load].sum(0)
-#				c = block_table_fix[load].sum(0)
 				#count_block_std_fix += rwa_std_fix(N_std_fix, net_adj, T_std_fix, holding_time, paths_fix)
 				#count_block_std_alt += rwa_std_alt(N_std_alt, net_adj, T_std_alt, holding_time, paths_alt)
 
@@ -138,12 +134,10 @@ if __name__ == "__main__":
 					sys.stdout.write('\rSimul: %04d/%04d ' % (sim+1, info.NUM_SIM))
 					sys.stdout.write('Load: %02d/%02d ' % (load, info.SIM_MAX_LOAD-1))
 					sys.stdout.write('Gen: %04d/%04d\t' % (gen+1, info.SIM_NUM_GEN))
-					sys.stdout.write('GA:  %04d, ' % count_block_ga)
-					sys.stdout.write('ALT: %04d, ' % count_block_alt)
-					sys.stdout.write('FIX: %04d '  % count_block_fix)
-#					sys.stdout.write('Tga:  %04d, ' % a[0])
-#					sys.stdout.write('Talt: %04d, ' % b[0])
-#					sys.stdout.write('Tfix: %04d '  % c[0])
+
+					sys.stdout.write('Tga:  %04d, ' % block_table_ga[load].sum(0)[0])
+					sys.stdout.write('Talt: %04d, ' % block_table_alt[load].sum(0)[0])
+					sys.stdout.write('Tfix: %04d '  % block_table_fix[load].sum(0)[0])
 #					sys.stdout.write('STF: %04d, ' % count_block_std_fix)
 #					sys.stdout.write('STA: %04d, ' % count_block_std_alt)
 					sys.stdout.flush()
@@ -251,16 +245,11 @@ if __name__ == "__main__":
 				while len(pop_alt):
 					paths_alt.pop(pop_alt.pop())
 
-			blocked_ga.append( 100.0*count_block_ga /info.SIM_NUM_GEN)
-			blocked_std_fix.append(100.0*count_block_std_fix/info.SIM_NUM_GEN)
-			blocked_std_alt.append(100.0*count_block_std_alt/info.SIM_NUM_GEN)
-			blocked_alt.append(100.0*count_block_alt/info.SIM_NUM_GEN)
-			blocked_fix.append(100.0*count_block_fix/info.SIM_NUM_GEN)
-
-		# Initialize Erlang 0 as 1
+		# Initialize Erlang 0 as 1, because there's no Erlang 0 (warning)
 		block_table_ga[0] = block_table_alt[0] = block_table_fix[0] = 1
 
 		# Divide all blocks in source for its respective number of arrived calls
+		# BT[?][?][2] = BT[?][?][0] / BT[?][?][1]
 		block_table_ga[...,2]  = block_table_ga[...,0]/block_table_ga[...,1]
 		block_table_alt[...,2] = block_table_alt[...,0]/block_table_alt[...,1]
 		block_table_fix[...,2] = block_table_fix[...,0]/block_table_fix[...,1]

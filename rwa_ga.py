@@ -20,7 +20,6 @@
 # Assignment (RWA) in Optical Networks
 
 import info
-import nsf
 
 from termcolor import colored
 from operator import itemgetter
